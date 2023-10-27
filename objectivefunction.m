@@ -22,65 +22,42 @@ while true
 % get images off cam
 rgbCAM = receive(rgb,5);
 rgbIM = readImage(rgbCAM);
+
 depthCAM = receive(depth,5);
 depthIM = readImage(depthCAM);
+DPC = depthIM(~isnan(depthIM));
 %imshow(depthIM); hold on;
 PC_depth = receive(depthPC,5);
 %PC = readImage(PC_depth);
-scatter3(PC_depth);
+%scatter3(PC_depth);
+
 camconvert = rgb2gray(rgbIM);
-imshow(camconvert); hold on;
+
 points = detectHarrisFeatures(camconvert);
-best4 = points.selectStrongest(4);
-%averaging function
-P1x = best4.Location(1,1);
-P2x = best4.Location(2,1);
-P3x = best4.Location(3,1);
-P4x = best4.Location(4,1);
-Px = (P1x + P2x + P3x + P4x) / 4
+corners = points.Location;
+imshow(rgbIM);
+hold on;
+plot(corners(:, 1), corners(:, 2), 'ro');
 
-P1y = best4.Location(1,2);
-P2y = best4.Location(2,2);
-P3y = best4.Location(3,2);
-P4y = best4.Location(4,2);
-Py = (P1y + P2y + P3y + P4y) / 4
+for i = 1:size(corners, 1)
+    for j = (i+1):size(corners, 1)
+        for k = (j+1):size(corners, 1)
+            for m = (k+1):size(corners, 1)
+                % Calculate the center of the square as the average of the four corners
+                center = [mean(corners([i, j, k, m], 1)), mean(corners([i, j, k, m], 2))];
+                
+                % Plot green circles at the centers
+                plot(center(1), center(2), 'go');
+            end
+        end
+    end
+end
 
-plot(points.selectStrongest(4));
-
- %camInfo = receive(c_info,5);
- %camheight = camInfo.Height;
- %camwidth = camInfo.Width;
-    % Calculate the error (position difference) between the TurtleBot and the square object
-    error_x = Px; %- (camheight / 2);  % Error in the x-direction
-    error_y = Py;
-   % display(camheight);
-    %display(camwidth);
-
-    %error_y = Py; %- (camwidth / 2);  % Error in the y-direction
    
     % Calculate control commands
     cmdVelMsg = rosmessage('geometry_msgs/Twist');
     cmdVelMsg.Linear.X = Kp_linear;  % Move forward/backward based on square's position
     cmdVelMsg.Angular.Z = Kp_angular * Py;  % Rotate to align with the square
-
-
-
- % Receive odometry data to get the TurtleBot's position
-    % odomMsg = receive(odom, 3);  % Wait for up to 3 seconds for odometry data
-    % pose = odomMsg.Pose.Pose;
-    % x_turtlebot = pose.Position.X
-    % y_turtlebot = pose.Position.Y
-% 
-%     % Calculate the error (position difference) between the TurtleBot and
-%     % the square object
-%     error_x = Px - x_turtlebot;  % Error in the x-direction
-%     error_y = Py - y_turtlebot;  % Error in the y-direction
-% % Calculate control commands
-%     cmdVelMsg = rosmessage('geometry_msgs/Twist');
-%     cmdVelMsg.Linear.X = 0.1  % Move forward/backward based on error in the y-direction
-%     cmdVelMsg.Angular.Z = Kp_angular * error_x;  % Rotate to align with the square
-%     display(cmdVelMsg.Angular.Z)
-%     %disp(cmdVelMsg)
     
      send(cmdVel, cmdVelMsg);
      %
