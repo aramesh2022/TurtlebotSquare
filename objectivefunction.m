@@ -42,6 +42,7 @@ strongest_corners = points.Location(sorted_indices(1:4), :);
 
 % Plot the original image
 imshow(camconvert);
+plot(strongest_corners);
 hold on;
 
 % Calculate the centers of the squares
@@ -61,26 +62,7 @@ for i = 1:num_corners
 end
 roundedC1 = round(center(1));
 roundedC2 = round(center(2));
-depth_value = depthIM(roundedC2, roundedC1)
- odomMsg = receive(odom, 3);  % Wait for up to 3 seconds for odometry data
-    pose = odomMsg.Pose.Pose;
-    x_turtlebot = pose.Position.X;
-    y_turtlebot = pose.Position.Y;
-% Given depth reading (depth) and the camera center (cam_center)
-%depth = 1000;  % Depth reading in millimeters (adjust as needed)
-cam_center = [x_turtlebot, y_turtlebot];  % Camera center point in real-world coordinates
-
-% Calculate the Euclidean distance
-square_center = [center(1), center(2)];  % Square's center point in real-world coordinates
-distance = norm(square_center - cam_center);
-
-% Display the calculated distance
-disp(['Distance to square: ', num2str(distance), ' millimeters']);   
-
-
-
-
-
+depth_value = depthIM(roundedC2, roundedC1);
 
     % Calculate control commands
     cmdVelMsg = rosmessage('geometry_msgs/Twist');
@@ -90,11 +72,6 @@ disp(['Distance to square: ', num2str(distance), ' millimeters']);
      send(cmdVel, cmdVelMsg);
      %
 
- % if distance_to_square <= max_tracking_distance
- %        break;  % Exit the loop when the robot is within the specified distance
- %    end
- %    end
-   % Publish control commands to drive topic
 
     % Check for the exit condition based on distance
     
