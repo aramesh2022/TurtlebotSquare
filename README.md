@@ -22,7 +22,7 @@ source devel/setup.bash
 Select which model of the turtlebot you would like, which for this project is the Turtlebot-3 Waffle  
 gedit ~/.bashrc  
 Add the following line to the bottom of your bashrc file, save and close  
-export TURTLEBOT3_MODEL=burger  
+export TURTLEBOT3_MODEL=waffle  
 Reload .bashrc  
 source ~/.bashrc  
 
