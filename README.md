@@ -26,11 +26,13 @@ export TURTLEBOT3_MODEL=burger
 Reload .bashrc  
 source ~/.bashrc  
 
-To run:   
+To run:       
+
 Step 1:  
 export TURTLEBOT3_MODEL=waffle  
 roslaunch turtlebot3_gazebo turtlebot3_empty_world.launch // change to correct world  
 roslaunch turtlebot3_gazebo turtlebot3_gazebo_rviz.launch  
+
 Step 2:   
 Run matlab code  
 
@@ -39,7 +41,7 @@ Sit back and enjoy
 
 
 ## **Explaining the code:**
-**Functionality:**
+**Functionality:**  
 The robot will initially check the RGB camera to scan for a square object in the vicinity, this is done via Harris Corner detection where all potential corners are collected and then they are sorted and the strongest 4 corners are selected. If no square is detected the robot will move a small amount anticlockwise and try to find a square again, this allows for the code designed to find the square even if it is placed behind the turtlebot.  
 If the code detects a square in the vicinity, the code then averages out the four strongest corners to get the center of the square and compares the calculated center of the square to the center of the robot's camera image. If the center is not within a preset acceptable range it will then rotate a small amount anticlockwise before once again checking the RGB camera, this will loop until the center is within the pre-specified range of the image.  
 Once the center is correct however, it then begins the forward movement of the turtlebot by sending a velocity to the turtlebot. The turtlebot will then stop in 2 cases, either when the preset distance from the square is reached or when the corner detection is no longer functional and it cannot find the square. This last scenario is to perform in the function of an estop for safety reasons so the robot does not error and continue endlessly. This also allows for the square to be moved and then placed again and the turlebot will still continue moving the square after its stoppage.  
