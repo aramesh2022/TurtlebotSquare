@@ -10,7 +10,7 @@ This project uses the combination of MATLAB and the ROS environment on an Ubuntu
 ## LINK TURTLEBOT GITS
 Within Ubuntu you need to follow these instructions to set up the turtlebot and it's simulations:
 
-Clone and build the 3 following repositories in your catkin workspace
+Clone and build the 3 following repositories in your catkin workspace  
 cd ~/catkin_ws/src/  
 git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git  
 git clone https://github.com/ROBOTIS-GIT/turtlebot3.git  
