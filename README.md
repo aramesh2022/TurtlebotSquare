@@ -25,16 +25,25 @@ Add the following line to the bottom of your bashrc file, save and close
 export TURTLEBOT3_MODEL=waffle  
 Reload .bashrc  
 source ~/.bashrc  
+## LAUNCH AND WORLD FILES 
+Once the gits above have been linked, navigate to:
+catkin_ws/src/turtlebot3_simulations/turtlebot3_gazebo/worlds 
+and paste the squareleft.world file in the folder.
 
-To run:       
+After this, navigate to 
+/catkin_ws/src/turtlebot3_simulations/turtlebot3_gazebo/launch
+and paste the turtlebot3_square.launch
+
+
+## FOR OPERATION    
 
 Step 1:  
 export TURTLEBOT3_MODEL=waffle  
-roslaunch turtlebot3_gazebo turtlebot3_empty_world.launch // change to correct world  
+roslaunch turtlebot3_gazebo turtlebot3_square.launch 
 roslaunch turtlebot3_gazebo turtlebot3_gazebo_rviz.launch  
 
 Step 2:   
-Run matlab code  
+Run matlab file TurtlebotSquareFollower.m
 
 Step 3:  
 Sit back and enjoy  
