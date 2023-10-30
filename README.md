@@ -1,5 +1,5 @@
 # Turtlebot following a Square in a straight line
-Turtlebot following a straight line by observing a square
+Turtlebot following a straight line by observing a square:    
 This project uses the combination of MATLAB and the ROS environment on an Ubuntu system to make the Turtlebot 3 Waffle follow a square object in a straight line. This involves the use of both the onboard RGB and depth camera's to do image and depth processing in order to locate the square and move the turtlebot towards it safely and accurately.
 
 **Required Software:**
@@ -11,7 +11,7 @@ This project uses the combination of MATLAB and the ROS environment on an Ubuntu
 Within Ubuntu you need to follow these instructions to set up the turtlebot and it's simulations:
 
 Clone and build the 3 following repositories in your catkin workspace
-cd ~/catkin_ws/src/
+cd ~/catkin_ws/src/  
 git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git  
 git clone https://github.com/ROBOTIS-GIT/turtlebot3.git  
 git clone https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git  
